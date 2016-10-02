@@ -2,11 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct Node{
-	struct Node *next;
-	int data;
-	};
-
+int size=0;
+int counter0;
 int isEmpty(int *arr);
 int getKey(int value);
 int add(int *arr, int value, int key);
@@ -20,10 +17,13 @@ int main(int argc, char* argv[]){
 	int err=0;
 	char str[255];
 	int hashTable[1000];
-	//hashTable=(int *)malloc(sizeof(int)*1000);
+	
 	for(int i=0;i<1000;i++){
 		hashTable[i]='\0';
 	}
+	/*for(int i=0;i<1000;i++){
+		printf("number at %d is %d\n",i,hashTable[i]);
+	}*/
 	if(argc<2){
 		printf("error1\n");
 		return 0;
@@ -83,6 +83,9 @@ int main(int argc, char* argv[]){
 				}
 			}
 	}
+	/*for(int i=0;i<1000;i++){
+		printf("number at %d is %d\n",i,hashTable[i]);
+	}*/
 	fclose(file);
 	//free(hashTable);
 }
@@ -94,73 +97,55 @@ int getKey(int value){
 int search(int *arr,int value, int key){
 	int tmpKey=0;
 	int result=0;
-/*	if(*(arr+key).data==value){
-		return 1;
-	}else{
-		if(key!=999)
-			tmpKey=key;
-		for(int i=tmpKey+1;i!=key&&i<1000;i++){
-			if(*(arr+i).next==NULL)
-				return 0;
-			else{
-				if(*(arr+i).data==value)
-					return 1;
-			}
-			if(i==999)
-				i=0;
-
-		}
-	}*/
+	int i;
 		if(arr[key]=='\0')
 			return 0;
 		
-		if(*(arr+key)==value)
+		if(arr[key]==value)
 			return 1;
 		if(key!=999)
 			tmpKey=key+1;
-		for(int i=tmpKey;(i!=key&&i<1000);i++){
-			if(*(arr+i)=='\0'){
-				result=0;
-				i=key;
+		for(i=tmpKey;i!=key;i=i+1){
+			if(arr[i]=='\0'){
+				return 0;
 			}else{
-				if(*(arr+i)==value){
-					result=1;
-					i=key;
+				if(arr[i]==value){
+					return 1;
 				}
 			}
 			if(i==999)
-				i=0;	
+				i=0;
 		}
-		return result;
+		return 0;
 }
 
 int add(int *arr, int value, int key){
-	//arr[temp] = malloc(sizeof(struct Node*))
 	int tmpKey=0;
 	int result=0;
+	int i;
 	if(*(arr+key)=='\0'){
 		*(arr+key)=value;
 		return 1;
 	}else{
 		if(key!=999)
 			tmpKey=key+1;
-		for(int i=tmpKey;(i!=key&&i<1000);i++){
-			if(*(arr+i)=='\0'){
+		for(i=tmpKey;(i!=key&&i<1000);i++){
+			
+			if(arr[i]=='\0'){
 				arr[i]=value;
-				result=1;
-				i=key;
+				return 1;
 			}
 			if(i==999)
 				i=0;
+			
 		}
-		return result;
+		return 0;
 	}
 }
 
 int isEmpty(int *arr){
-	for(int i=0;i<1000; i++){
-		if(*(arr+i)=='\0')
-			return 1;
-	}
-	return 0;
+	if(size==100)
+		return 0;
+	else
+		return 1;
 }
