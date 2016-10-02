@@ -75,6 +75,7 @@ int main(int argc, char* argv[]){
 							}else{
 								add(hashTable,num,getKey(num));
 								printf("inserted\n");
+								size++;
 							}
 
 						}
@@ -144,7 +145,7 @@ int add(int *arr, int value, int key){
 }
 
 int isEmpty(int *arr){
-	if(size==100)
+	if(size==1000)
 		return 0;
 	else
 		return 1;
